@@ -1,6 +1,10 @@
 package org.cjvaldi.inventory.api.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
@@ -13,26 +17,28 @@ public class Producto {
     private Integer idProducto;
 
     @Column(nullable = false, length = 150)
+    @NotBlank(message = "La descripción no puede estar vacía")
     private String descripcion;
 
     @Column(nullable = false)
+    @NotNull(message = "El precio es obligatorio")
+    @DecimalMin(value = "0.01", message = "El precio debe ser superior a 0")
     private Double precio;
 
     @Column(nullable = false)
+    @NotNull(message = "Las existencias son obligatorias")
+    @Min(value = 0, message = "Las existencias no pueden ser negativas")
     private Integer existencias;
 
-    // Constructor sin argumentos (obligatorio para Hibernate/JPA)
     public Producto() {
     }
 
-    // Constructor completo (sin id para inserciones)
     public Producto(String descripcion, Double precio, Integer existencias) {
         this.descripcion = descripcion;
         this.precio = precio;
         this.existencias = existencias;
     }
 
-    // Constructor con todos los atributos
     public Producto(Integer idProducto, String descripcion, Double precio, Integer existencias) {
         this.idProducto = idProducto;
         this.descripcion = descripcion;
@@ -40,12 +46,11 @@ public class Producto {
         this.existencias = existencias;
     }
 
-    // Getters y Setters
     public Integer getIdProducto() {
         return idProducto;
     }
 
-    public void setId(Integer idProducto) {
+    public void setIdProducto(Integer idProducto) {
         this.idProducto = idProducto;
     }
 
@@ -73,18 +78,16 @@ public class Producto {
         this.existencias = existencias;
     }
 
-    // Override toString
     @Override
     public String toString() {
         return "Producto{" +
-                "id=" + idProducto +
+                "idProducto=" + idProducto +
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
                 ", existencias=" + existencias +
                 '}';
     }
 
-    // Buenas prácticas en JPA: equals y hashCode basados en la clave primaria
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

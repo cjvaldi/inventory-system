@@ -1,6 +1,7 @@
 package org.cjvaldi.inventory.api.service;
 
 import org.cjvaldi.inventory.api.entity.Producto;
+import org.cjvaldi.inventory.api.exception.RecursoNoEncontradoExcepcion;
 import org.cjvaldi.inventory.api.repository.ProductoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,8 @@ public class ProductoService implements IProductoService {
     @Override
     @Transactional(readOnly = true)
     public Producto buscarProductoPorId(Integer idProducto) {
-        return this.productoRepository.findById(idProducto).orElse(null);
+        return this.productoRepository.findById(idProducto).
+                orElseThrow(()->new RecursoNoEncontradoExcepcion("No se encontró el producto con id: "+idProducto));
     }
 
     @Override
