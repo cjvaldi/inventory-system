@@ -1,0 +1,19 @@
+"# inventory-system" 
+# Sistema / IDEs
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/
+
+# Backend (inventory-api)
+inventory-api/target/
+inventory-api/*.class
+inventory-api/.mvn/
+inventory-api/*.log
+
+# Frontend (inventory-web)
+inventory-web/node_modules/
+inventory-web/dist/
+inventory-web/.angular/
+inventory-web/*.log
