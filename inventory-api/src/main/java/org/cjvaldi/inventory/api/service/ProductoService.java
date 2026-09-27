@@ -41,9 +41,8 @@ public class ProductoService implements IProductoService {
     @Override
     @Transactional
     public void eliminarProductoPorId(Integer idProducto) {
-        if(!productoRepository.existsById(idProducto)){
-            throw new NoSuchElementException("No existe producto con id: "+idProducto);
-        }
-        this.productoRepository.deleteById(idProducto);
+        Producto producto = this.productoRepository.findById(idProducto)
+                .orElseThrow(() -> new RecursoNoEncontradoExcepcion("No se encontró el producto con id: " + idProducto));
+        this.productoRepository.delete(producto); // o deleteById(idProducto)
     }
 }

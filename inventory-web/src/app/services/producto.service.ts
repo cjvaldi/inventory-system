@@ -7,7 +7,7 @@ import { Producto } from '../models/producto.model';
   providedIn: 'root',
 })
 export class ProductoServicio {
-  private urlBase = 'http://localhost:8080/inventory-app';
+  private urlBase = 'http://localhost:8080/inventory-app/productos';
 
   constructor(private clienteHttp: HttpClient) {}
 
